@@ -1,0 +1,15 @@
+.custom-prev-icon, .custom-next-icon {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-size: 100% 100%;
+}
+
+.custom-prev-icon {
+  background-image: url('sua-seta-esquerda.svg');
+}
+
+.custom-next-icon {
+  background-image: url('sua-seta-direita.svg');
+}
+
