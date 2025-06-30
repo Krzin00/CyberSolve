@@ -138,7 +138,7 @@
                 <div class="col-md-6 col-lg-4 d-flex">
                     <div class="card flex-fill">
                         <div class="card-body">
-                            <h5 class="card-title"><span class="badge text-bg-warning">Ocupada</span></h5>
+                            <h5 class="card-title"><span class="badge text-bg-success">Disponível</span></h5>
                             <h5 class="card-text">Rayla Reis</h5>
                             <p>Desenvolvedora Back-End</p>
                             <p><i class="bi bi-geo-alt-fill"></i> Uberlândia, MG</p>
@@ -189,7 +189,7 @@
                 <div class="col-md-6 col-lg-4 d-flex">
                     <div class="card flex-fill">
                         <div class="card-body">
-                            <h5 class="card-title"><span class="badge text-bg-warning">Ocupado</span></h5>
+                            <h5 class="card-title"><span class="badge text-bg-success">Disponível</span></h5>
                             <h5 class="card-text">Fernanda Costa</h5>
                             <p>Analista de Dados</p>
                             <p><i class="bi bi-geo-alt-fill"></i> São Paulo, SP</p>
@@ -262,6 +262,11 @@
                                 required placeholder="Digite o título da vaga">
                         </div>
                         <div class="mb-3">
+                            <label for="salary" class="form-label">Salário Proposto (R$)</label>
+                            <input type="number" class="form-control bg-secondary text-white border-0" id="salary"
+                                placeholder="Ex: 3000.00" step="0.01" min="0">
+                        </div>
+                        <div class="mb-3">
                             <label for="message" class="form-label">Mensagem</label>
                             <textarea class="form-control bg-secondary text-white border-0" id="message" rows="5"
                                 required placeholder="Descreva a proposta de emprego"></textarea>
@@ -324,7 +329,6 @@
             </div>
         </div>
     </footer>
-    <!-- Modal for Email Subscription Success -->
     <div class="modal fade" id="emailSuccessModal" tabindex="-1" aria-labelledby="emailSuccessModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -351,8 +355,29 @@
     <script>
         document.getElementById('proposalForm').addEventListener('submit', function (event) {
             event.preventDefault();
+
+            // Adiciona a lógica para coletar o valor do salário
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const jobTitle = document.getElementById('jobTitle').value;
+            const salary = document.getElementById('salary').value; // Novo campo de salário
+            const message = document.getElementById('message').value;
+
+            // Aqui você pode enviar esses dados para um backend, API, ou apenas exibi-los no console por enquanto.
+            console.log('Dados da Proposta:');
+            console.log('Nome:', name);
+            console.log('E-mail:', email);
+            console.log('Título da Vaga:', jobTitle);
+            console.log('Salário Proposto:', salary ? `R$ ${parseFloat(salary).toFixed(2)}` : 'Não informado'); // Formata o salário
+            console.log('Mensagem:', message);
+
             var modal = bootstrap.Modal.getInstance(document.getElementById('proposalModal'));
             modal.hide();
+
+            // Opcional: Mostrar uma mensagem de sucesso para o envio da proposta, similar ao email
+            // Você pode criar um novo modal de sucesso para a proposta, se desejar.
+            alert('Proposta enviada com sucesso! (Dados no console)');
+            this.reset(); // Limpa o formulário após o envio
         });
 
         document.getElementById('emailSubscriptionForm').addEventListener('submit', function (event) {

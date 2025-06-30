@@ -109,15 +109,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html"><i class="bi bi-house-door"></i> Início</a>
+                        <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> Início</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="profissionais.html"><i class="bi bi-briefcase"></i> Profissionais</a>
+                        <a class="nav-link" href="profissionais.html"><i class="bi bi-briefcase"></i> Profissionais</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#cursos"><i class="bi bi-book"></i> Empresas Parceiras</a></li>
                     <li class="nav-item"><a class="nav-link" href="#modal"><i class="bi bi-app-indicator"></i> Aplicativo</a></li>
                 </ul>
-                <a href="bemvindo.html" class="btn btn-light">Login</a>
+                <a href="bemvindo.html" class="btn btn-light" id="loginButtonNav">Login</a>
             </div>
         </div>
     </nav>
@@ -182,7 +182,6 @@
         </div>
     </footer>
 
-    <!-- Modal de sucesso -->
     <div class="modal fade" id="emailSuccessModal" tabindex="-1" aria-labelledby="emailSuccessModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content bg-dark text-white text-center">
@@ -212,6 +211,18 @@
             var modal = new bootstrap.Modal(document.getElementById('emailSuccessModal'));
             modal.show();
             this.reset();
+        });
+
+        // Lógica para ocultar o botão de login se o usuário estiver "logado"
+        document.addEventListener('DOMContentLoaded', function() {
+            const loggedIn = localStorage.getItem('loggedIn');
+            const loginButton = document.getElementById('loginButtonNav');
+
+            if (loggedIn === 'true' && loginButton) {
+                loginButton.style.display = 'none'; // Oculta o botão de login
+            } else if (loginButton) {
+                loginButton.style.display = 'block'; // Garante que o botão de login apareça se não estiver logado
+            }
         });
     </script>
 </body>
