@@ -227,7 +227,6 @@
                 <input type="email" class="form-control me-2" placeholder="Seu melhor e-mail" required>
                 <button type="submit" class="btn btn-dark">Cadastrar</button>
             </form>
-
         </div>
     </section>
     <footer class="bg-dark text-white pt-4 pb-2">
@@ -263,6 +262,7 @@
             </div>
         </div>
     </footer>
+
     <!-- Modal for Email Subscription Success -->
     <div class="modal fade" id="emailSuccessModal" tabindex="-1" aria-labelledby="emailSuccessModalLabel"
         aria-hidden="true">
@@ -288,11 +288,11 @@
         </div>
     </div>
 
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
+
     <!-- JavaScript for Form Submission -->
     <script>
         document.getElementById('professionalForm').addEventListener('submit', function (event) {
@@ -303,12 +303,12 @@
 
         document.getElementById('emailSubscriptionForm').addEventListener('submit', function (event) {
             event.preventDefault();
-            alert('Email cadastrado!');
+            var modal = new bootstrap.Modal(document.getElementById('emailSuccessModal'));
+            modal.show();
             this.reset();
         });
     </script>
 
-    </script>
     <!-- Widget VLibras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
@@ -341,26 +341,35 @@
         }
 
         // Alternância de alto contraste
+        function toggleContrast() {
+            const contrastToggle = document.getElementById('contrastToggle');
+            
+            if (!contrastToggle) return;
+
+            document.body.classList.toggle('high-contrast');
+            if (document.body.classList.contains('high-contrast')) {
+                localStorage.setItem('highContrast', 'true');
+                contrastToggle.innerHTML = '<i class="bi bi-brightness-low"></i> Contraste Normal';
+                vibrar(100);
+            } else {
+                localStorage.removeItem('highContrast');
+                contrastToggle.innerHTML = '<i class="bi bi-brightness-high"></i> Alto Contraste';
+                vibrar(50);
+            }
+        }
+
+        // Aplica o contraste salvo ao carregar a página
         document.addEventListener('DOMContentLoaded', function () {
             const contrastToggle = document.getElementById('contrastToggle');
+            
+            if (!contrastToggle) return;
 
             if (localStorage.getItem('highContrast')) {
                 document.body.classList.add('high-contrast');
                 contrastToggle.innerHTML = '<i class="bi bi-brightness-low"></i> Contraste Normal';
             }
 
-            contrastToggle.addEventListener('click', function () {
-                document.body.classList.toggle('high-contrast');
-                if (document.body.classList.contains('high-contrast')) {
-                    localStorage.setItem('highContrast', 'true');
-                    this.innerHTML = '<i class="bi bi-brightness-low"></i> Contraste Normal';
-                    vibrar(100);
-                } else {
-                    localStorage.removeItem('highContrast');
-                    this.innerHTML = '<i class="bi bi-brightness-high"></i> Alto Contraste';
-                    vibrar(50);
-                }
-            });
+            contrastToggle.addEventListener('click', toggleContrast);
 
             // Adiciona vibração a elementos interativos
             const elementosInterativos = document.querySelectorAll(
