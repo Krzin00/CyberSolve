@@ -81,109 +81,61 @@
         }
 
         /* Estilos de Acessibilidade */
-        .accessibility-bar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-        }
+    .accessibility-bar {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px;
+        border-radius: 5px;
+        backdrop-filter: blur(5px);
+    }
 
-        /* Modo Alto Contraste */
-        body.high-contrast {
-            background: #000 !important;
-            color: #FFF !important;
-        }
+    /* Modo Alto Contraste */
+    body.high-contrast {
+        background: #000 !important;
+        color: #FFF !important;
+    }
 
-        body.high-contrast .card {
-            background: #000 !important;
-            color: #FFF !important;
-            border: 2px solid #FFF !important;
-        }
+    body.high-contrast .card {
+        background: #000 !important;
+        color: #FFF !important;
+        border: 2px solid #FFF !important;
+    }
 
-        body.high-contrast .btn-primary {
-            background: #FFF !important;
-            color: #000 !important;
-            border: 2px solid #FFF !important;
-        }
+    body.high-contrast .btn-primary {
+        background: #FFF !important;
+        color: #000 !important;
+        border: 2px solid #FFF !important;
+    }
 
-        body.high-contrast .navbar {
-            background: #000 !important;
-            border-bottom: 2px solid #FFF !important;
-        }
+    body.high-contrast .navbar {
+        background: #000 !important;
+        border-bottom: 2px solid #FFF !important;
+    }
 
-        body.high-contrast .modal-content {
-            background: #000 !important;
-            border: 2px solid #FFF !important;
-        }
+    body.high-contrast .modal-content {
+        background: #000 !important;
+        border: 2px solid #FFF !important;
+    }
 
-        /* Melhorias de Foco */
-        a:focus,
-        button:focus,
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: 3px solid #FFA500 !important;
-            outline-offset: 2px !important;
-        }
+    /* Melhorias de Foco */
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: 3px solid #FFA500 !important;
+        outline-offset: 2px !important;
+    }
 
-        /* Estilos de Acessibilidade */
-        .accessibility-bar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            border-radius: 5px;
-            backdrop-filter: blur(5px);
-        }
-
-        /* Modo Alto Contraste */
-        body.high-contrast {
-            background: #000 !important;
-            color: #FFF !important;
-        }
-
-        body.high-contrast .card {
-            background: #000 !important;
-            color: #FFF !important;
-            border: 2px solid #FFF !important;
-        }
-
-        body.high-contrast .btn-primary {
-            background: #FFF !important;
-            color: #000 !important;
-            border: 2px solid #FFF !important;
-        }
-
-        body.high-contrast .navbar {
-            background: #000 !important;
-            border-bottom: 2px solid #FFF !important;
-        }
-
-        body.high-contrast .modal-content {
-            background: #000 !important;
-            border: 2px solid #FFF !important;
-        }
-
-        /* Melhorias de Foco */
-        a:focus,
-        button:focus,
-        input:focus,
-        select:focus,
-        textarea:focus {
-            outline: 3px solid #FFA500 !important;
-            outline-offset: 2px !important;
-        }
-
-        /* Estilo para o botão do VLibras */
-        .vw-access-button {
-            z-index: 1001 !important;
-        }
+    /* Estilo para o botão do VLibras */
+    .vw-access-button {
+        z-index: 1001 !important;
+    }
     </style>
 </head>
 
@@ -492,53 +444,55 @@
     </script>
     <!-- Barra de Acessibilidade Flutuante -->
     <div class="accessibility-bar">
-        <button id="contrastToggle" class="btn btn-sm btn-outline-secondary">
+        <button id="contrastToggle" class="btn btn-sm btn-outline-secondary me-2">
             <i class="bi bi-brightness-high"></i> Alto Contraste
         </button>
-    </div>
+        <button onclick="lerTexto('conteudo-principal')" class="btn btn-sm btn-outline-secondary">
+            <i class="bi bi-volume-up"></i> Ler Conteúdo
+        </button>
 
-    <script>
-        // Função de vibração
-        function vibrar(duracao = 100) {
-            if ("vibrate" in navigator) {
-                navigator.vibrate(duracao);
-            }
-        }
-
-        // Alternância de alto contraste
-        document.addEventListener('DOMContentLoaded', function () {
-            const contrastToggle = document.getElementById('contrastToggle');
-
-            if (localStorage.getItem('highContrast')) {
-                document.body.classList.add('high-contrast');
-                contrastToggle.innerHTML = '<i class="bi bi-brightness-low"></i> Contraste Normal';
-            }
-
-            contrastToggle.addEventListener('click', function () {
-                document.body.classList.toggle('high-contrast');
-                if (document.body.classList.contains('high-contrast')) {
-                    localStorage.setItem('highContrast', 'true');
-                    this.innerHTML = '<i class="bi bi-brightness-low"></i> Contraste Normal';
-                    vibrar(100);
-                } else {
-                    localStorage.removeItem('highContrast');
-                    this.innerHTML = '<i class="bi bi-brightness-high"></i> Alto Contraste';
-                    vibrar(50);
+        <script>
+            // Função de vibração
+            function vibrar(duracao = 100) {
+                if ("vibrate" in navigator) {
+                    navigator.vibrate(duracao);
                 }
-            });
+            }
 
-            // Adiciona vibração a elementos interativos
-            const elementosInterativos = document.querySelectorAll(
-                'button, a.btn, input[type="submit"], .card'
-            );
+            // Alternância de alto contraste
+            document.addEventListener('DOMContentLoaded', function () {
+                const contrastToggle = document.getElementById('contrastToggle');
 
-            elementosInterativos.forEach(elemento => {
-                elemento.addEventListener('click', function () {
-                    vibrar(50);
+                if (localStorage.getItem('highContrast')) {
+                    document.body.classList.add('high-contrast');
+                    contrastToggle.innerHTML = '<i class="bi bi-brightness-low"></i> Contraste Normal';
+                }
+
+                contrastToggle.addEventListener('click', function () {
+                    document.body.classList.toggle('high-contrast');
+                    if (document.body.classList.contains('high-contrast')) {
+                        localStorage.setItem('highContrast', 'true');
+                        this.innerHTML = '<i class="bi bi-brightness-low"></i> Contraste Normal';
+                        vibrar(100);
+                    } else {
+                        localStorage.removeItem('highContrast');
+                        this.innerHTML = '<i class="bi bi-brightness-high"></i> Alto Contraste';
+                        vibrar(50);
+                    }
+                });
+
+                // Adiciona vibração a elementos interativos
+                const elementosInterativos = document.querySelectorAll(
+                    'button, a.btn, input[type="submit"], .card'
+                );
+
+                elementosInterativos.forEach(elemento => {
+                    elemento.addEventListener('click', function () {
+                        vibrar(50);
+                    });
                 });
             });
-        });
-    </script>
+        </script>
 </body>
 
 </html>
